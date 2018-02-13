@@ -16,10 +16,12 @@ library(mosaic)
 library(ggplot2)
 library(stats)
 
-#This code below won't work yet
 #can't upload file because too large
-#need to select variables
-# data_full <- read.csv("Pop Health Full Data 2016")
+#need to select vars
+
+#vars selected and data filtered in other rmd (data download.Rmd)
+
+filtered_data <- read.csv("Pop Health Data 2016.csv")
 ```
 
 ###Julianna
