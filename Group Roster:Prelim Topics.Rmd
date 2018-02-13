@@ -1,0 +1,25 @@
+---
+title: "Group Roster/Preliminary Topics"
+author: "Julianna Alvord, Natalie LaBossier, Raegan Stokes, Cas Sweeney"
+date: "2/9/2018"
+header-includes:
+      - \usepackage{setspace}\doublespacing
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+####Group Roster
+Our group will include Julianna Alvord, Natalie LaBossier, Raegan Stokes, and Cas Sweeney.
+
+####Preliminary Topics
+\setlength{\parindent}{10ex}
+Initially, our interests surrounded health behaviors within the LGBTQ+ community. In order to fill a gap in the literature and match our interests, we decided to focus our research on transgender individuals. Because we knew that numbers would likely be small, it was decided that the research would be most successful if we did not completely filter out cis individuals. On top of that decision, we discussed our interest in risk behavior. Risk behavior is a common outcome for adolescent studies but less so within the LGBTQ+ community and even less when regarding trans individuals. The behavior in which we were most interested was HIV risk behavior. 
+
+\setlength{\parindent}{10ex}
+In order to research how this outcome may differ for different groups, we plan on including both gender and race as predictors (determinants). We strongly believe it will be important to differentiate the results between trans women and trans men as there are likely different behavioral patterns, and we do not want to group them together strictly because they are trans. This is a problem we have seen throughout much research in the LGBTQ+ community, where the community is grouped together when it would likely be important to specify sexuality/gender. In this research, we hope to look just as much at social determinants as we do health behaviors because we believe they will be equally as important. 
+
+\setlength{\parindent}{10ex}
+Another idea we have talked about adding to our research includes the concept of change over time. The dataset we will use for this project allows us to study how the outcome has changed over the past few years, which could be interesting as social and political climates change. In the future, we hope to discover other gaps in the literature that we may be able to touch on through this project. 
