@@ -1,0 +1,39 @@
+---
+title: "main r file"
+author: "Julianna Alvord"
+date: "2/13/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Loading Data
+```{r}
+
+```
+
+###Julianna
+```{r}
+
+```
+
+###Natalie
+```{r}
+
+```
+
+###Raegan
+```{r}
+
+```
+
+###Cas
+```{r}
+
+```
+
+
+
+
