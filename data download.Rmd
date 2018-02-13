@@ -19,5 +19,6 @@ mydata <- sasxport.get("/Users/juliannaalvord/Downloads/LLCP2016.XPT  2")
 
 write.csv(mydata, "/Users/juliannaalvord/Documents/SDS 390/Pop Health Data 2016.csv")
 
+#We need to select variables
 ```
 

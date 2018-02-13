@@ -9,9 +9,17 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-### Loading Data
+### This should remain the same for everyone
 ```{r}
+library(dplyr)
+library(mosaic)
+library(ggplot2)
+library(stats)
 
+#This code below won't work yet
+#can't upload file because too large
+#need to select variables
+# data_full <- read.csv("Pop Health Full Data 2016")
 ```
 
 ###Julianna
