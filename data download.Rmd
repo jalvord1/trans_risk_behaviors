@@ -1,0 +1,23 @@
+---
+title: "downloading and filtering data"
+author: "Julianna Alvord"
+date: "2/13/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##loading data
+```{r}
+#This will only work on Julianna's computer
+
+library(Hmisc)
+
+mydata <- sasxport.get("/Users/juliannaalvord/Downloads/LLCP2016.XPT  2")
+
+write.csv(mydata, "/Users/juliannaalvord/Documents/SDS 390/Pop Health Data 2016.csv")
+
+```
+
