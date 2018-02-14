@@ -27,30 +27,56 @@ filtered_data <- read.csv("Pop Health Data 2016.csv")
 ###Julianna
 ```{r}
 #Starting data analysis 2-14
-
 tally(filtered_data$trnsgndr) 
 
+#Creating new vars------------------------
+
+#Transgender
 filtered_data <- filtered_data %>%
   filter(!trnsgndr %in% c(7,9)) %>%
-  mutate(transgender = ifelse(trnsgndr == 1, "Female", ifelse(trnsgndr == 2, "Male", ifelse(trnsgndr == 3, "Non-conforming", "Cis"))))
+  mutate(transgender = ifelse(trnsgndr == 1, "female", 
+                              ifelse(trnsgndr == 2, "male", 
+                                     ifelse(trnsgndr == 3, "non-conforming", "Cis"))))
 
-#Checking to see if code worked
-tally(filtered_data$transgender)
-#worked
-
+#High HIV risk binary variable 
 filtered_data <- filtered_data %>%
   filter(!is.na(hivrisk4)) %>%
   filter(!hivrisk4 %in% c(7, 9)) %>%
   mutate(high_hiv_risk = ifelse(hivrisk4 == 1, 1, 0))
 
-#Initial Model
-logm1 <- glm(high_hiv_risk ~ transgender, data = filtered_data, family=binomial)
+#Race (grouped) 
+filtered_data <- filtered_data %>%
+  filter(!x.racegr3 == 9) %>%
+  mutate(race = ifelse(x.racegr3 == 1, "white", 
+                       ifelse(x.racegr3 == 2, "black", 
+                              ifelse(x.racegr3 == 3, "other", 
+                                     ifelse(x.racegr3 == 4, "multi", "hispanic")))))
 
+
+#Models-----------------------------------
+
+#Initial Model
+logm1 <- glm(high_hiv_risk ~ transgender, data = filtered_data, family = binomial)
 summary(logm1)
 
-logit(5.66e-11)
-
 exp(cbind(OR = coef(logm1)))
+
+#Adding race var
+filtered_data$race <- as.factor(filtered_data$race)
+filtered_data$race <- relevel(filtered_data$race, ref = "white")
+
+logm2 <- glm(high_hiv_risk ~ transgender + race, data = filtered_data, family = binomial)
+summary(logm2)
+
+exp(cbind(OR = coef(logm2)))
+
+#Interaction var (trans:race) 
+logm_int <- glm(high_hiv_risk ~ transgender + race + transgender*race, data = filtered_data, family = binomial)
+summary(logm_int)
+
+exp(cbind(OR = coef(logm_int)))
+
+#Are the interaction terms compared to transgender:white or cis:white?
 ```
 
 ###Natalie
