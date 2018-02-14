@@ -27,6 +27,30 @@ filtered_data <- read.csv("Pop Health Data 2016.csv")
 ###Julianna
 ```{r}
 #Starting data analysis 2-14
+
+tally(filtered_data$trnsgndr) 
+
+filtered_data <- filtered_data %>%
+  filter(!trnsgndr %in% c(7,9)) %>%
+  mutate(transgender = ifelse(trnsgndr == 1, "Female", ifelse(trnsgndr == 2, "Male", ifelse(trnsgndr == 3, "Non-conforming", "Cis"))))
+
+#Checking to see if code worked
+tally(filtered_data$transgender)
+#worked
+
+filtered_data <- filtered_data %>%
+  filter(!is.na(hivrisk4)) %>%
+  filter(!hivrisk4 %in% c(7, 9)) %>%
+  mutate(high_hiv_risk = ifelse(hivrisk4 == 1, 1, 0))
+
+#Initial Model
+logm1 <- glm(high_hiv_risk ~ transgender, data = filtered_data, family=binomial)
+
+summary(logm1)
+
+logit(5.66e-11)
+
+exp(cbind(OR = coef(logm1)))
 ```
 
 ###Natalie
