@@ -1,4 +1,4 @@
----
++---
 title: "Revised Topics"
 author: "Julianna Alvord, Natalie LaBossier, Raegan Stokes, Cas Sweeney"
 date: "2/14/2018"
@@ -12,6 +12,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ####Research Question
+
+This project will compare the HIV risk among groups of transgender people (transgender men, transgender women, and gender non-conforming people) and also their level of risk versus cisgender people.
+
+Studies have shown that various minority groups are at higher risk for unhealthy behaviors in general and HIV risk specifically. However, there is a current lack of analysis for transgender people in this field.
+
+We strongly believe it will be important to differentiate the results between trans women, trans men, and gender non-comforming people, as there are likely different behavioral patterns, and we do not want to group them together strictly because they are trans. This is a problem we have seen throughout much research in the LGBTQ+ community, where the community is grouped together when it would likely be important to specify sexuality/gender.
+
+In this research, we hope to look just as much at social determinants as we do health behaviors because we believe they will be equally as important.
 
 ####Hypothesis
 
