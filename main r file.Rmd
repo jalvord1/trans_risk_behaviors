@@ -32,6 +32,7 @@ filtered_data <- read.csv("Pop Health Data 2016.csv")
 ###Natalie
 ```{r}
 ggplot(aes(x=myass, y=git), data="lithub")
+
 ```
 
 ###Raegan
