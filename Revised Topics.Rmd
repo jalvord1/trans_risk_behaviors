@@ -32,7 +32,7 @@ We are planning on accounting for race, sexual orientation, income, and educatio
 
 ####Data
 
-This study will use data from the Behavioral Risk Factor Surveillance System (BRFSS). We will be using the survey data taken in 2016. The This is the most recent year, so the information will be the most up-to-date. BRFSS is a telephone survey that collects data from US residents on health risks, chronic illnesses, and access to health services.
+This study will use data from the Behavioral Risk Factor Surveillance System (BRFSS). We will be using the survey data taken in 2014, 2015, and 2016. These three years are the only so far to include questions on transgender identities. BRFSS is a telephone survey that collects data from US residents on health risks, chronic illnesses, and access to health services.
 
 ####Population
 
