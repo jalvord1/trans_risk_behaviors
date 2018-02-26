@@ -27,7 +27,6 @@ filtered_data <- read.csv("Pop Health Data 2016.csv")
 ###Julianna
 ```{r}
 #Starting data analysis 2-14
-tally(filtered_data$trnsgndr) 
 
 #Creating new vars------------------------
 
@@ -52,6 +51,10 @@ filtered_data <- filtered_data %>%
                               ifelse(x.racegr3 == 3, "other", 
                                      ifelse(x.racegr3 == 4, "multi", "hispanic")))))
 
+#Descriptive Stats-----------------------
+tally(filtered_data$transgender)
+tally(filtered_data$high_hiv_risk)
+
 
 #Models-----------------------------------
 
@@ -69,6 +72,7 @@ logm2 <- glm(high_hiv_risk ~ transgender + race, data = filtered_data, family = 
 summary(logm2)
 
 exp(cbind(OR = coef(logm2)))
+
 
 #Interaction var (trans:race) 
 logm_int <- glm(high_hiv_risk ~ transgender + race + transgender*race, data = filtered_data, family = binomial)
