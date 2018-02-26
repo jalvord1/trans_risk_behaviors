@@ -1,7 +1,7 @@
-+---
+---
 title: "Revised Topics"
 author: "Julianna Alvord, Natalie LaBossier, Raegan Stokes, Cas Sweeney"
-date: "2/14/2018"
+date: "2/19/2018"
 header-includes:
       - \usepackage{setspace}\doublespacing
 output: pdf_document
@@ -12,21 +12,30 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ####Research Question
+\setlength{\parindent}{10ex}
 
-This project will compare the HIV risk among groups of transgender people (transgender men, transgender women, and gender non-conforming people) and also their level of risk versus cisgender people.
+This project will compare the HIV risk related behaviors among groups of transgender people (transgender men, transgender women, and gender non-conforming people) and compared to cisgender people, with a focus on HIV risk-related behaviors.
 
-Studies have shown that various minority groups are at higher risk for unhealthy behaviors in general and HIV risk specifically. However, there is a current lack of analysis for transgender people in this field.
+Studies have shown that various minority groups are at higher risk for unhealthy behaviors in general and HIV risk related behaviors specifically. However, there is a current lack of analysis on a population level for transgender people in this field.
 
-We strongly believe it will be important to differentiate the results between trans women, trans men, and gender non-comforming people, as there are likely different behavioral patterns, and we do not want to group them together strictly because they are trans. This is a problem we have seen throughout much research in the LGBTQ+ community, where the community is grouped together when it would likely be important to specify sexuality/gender.
+We strongly believe it will be important to differentiate between trans women, trans men, and gender non-comforming people in our models, possibly resulting from different behavioral patterns or different experiences of minority stress. Much of the published literature on LGBTQ+ health groups LGB people and transgender people together, and even research focusing specifically on transgender populations tends to group transgender men, transgender women, and gender non-conforming (GNC) individuals together. We believe that, through looking at these groups separately, we may notice important differences that may have clinical or population health-related significance.
 
 In this research, we hope to look just as much at social determinants as we do health behaviors because we believe they will be equally as important.
 
 ####Hypothesis
 
+We hypothesize that transgender status will be correlated with HIV risk-related behaviors. Further, we believe that HIV risk behaviors will be differentially correlated in transgender individuals with different gender identities and in transgender individuals with different racial identities. We believe that transgender status will be correlated with HIV risk-related behaviors because it has been shown that transgender individuals experiencing greater levels of stress, as measured by a modified version of the Meyer’s Minority Stress Model, also exhibit higher levels of HIV risk related behaviors. It is also evident that people of color have higher rates of HIV infection, therefore we believe that race may be related to HIV risk related behaviors. Most of the studies that indicate high rates of HIV infection among transgender individuals focus primarily on transgender women, so we believe that there may be a difference that has gone unrecognized between transgender women, transgender men, and gender non-conforming individuals.
+
 ####Confounders
 
-race
-sexual orientation
-emotional support
-income
-education
+We are planning on accounting for race, sexual orientation, income, and education in our models. Race and sexual orientation have been shown to influence HIV risk behaviors through minority stress processes, and we believe that income and education may also have an influence through similar stress processes and through a potential lack of available resources and educational tools that could affect HIV risk behaviors. We are also interested in emotional and social support as potential confounding variables. 
+
+####Data
+
+This study will use data from the Behavioral Risk Factor Surveillance System (BRFSS). We will be using the survey data taken in 2014, 2015, and 2016. These three years are the only so far to include questions on transgender identities. BRFSS is a telephone survey that collects data from US residents on health risks, chronic illnesses, and access to health services.
+
+####Population
+
+BRFSS surveys take data from randomized individuals in states all across the country, with a small enough sample size as to not lead to likely overlap, so one can assume independence, but large enough to find statistically significant relationships between variables.
+
+We will be looking at health information from all 50 states, both looking at the whole population, and also making analyses on groups of people that identified under the transgender umbrella.
