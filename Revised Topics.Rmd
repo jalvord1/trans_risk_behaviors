@@ -30,3 +30,12 @@ We hypothesize that transgender status will be correlated with HIV risk-related 
 
 We are planning on accounting for race, sexual orientation, income, and education in our models. Race and sexual orientation have been shown to influence HIV risk behaviors through minority stress processes, and we believe that income and education may also have an influence through similar stress processes and through a potential lack of available resources and educational tools that could affect HIV risk behaviors. We are also interested in emotional and social support as potential confounding variables. 
 
+####Data
+
+This study will use data from the Behavioral Risk Factor Surveillance System (BRFSS). We will be using the survey data taken in 2014, 2015, and 2016. These three years are the only so far to include questions on transgender identities. BRFSS is a telephone survey that collects data from US residents on health risks, chronic illnesses, and access to health services.
+
+####Population
+
+BRFSS surveys take data from randomized individuals in states all across the country, with a small enough sample size as to not lead to likely overlap, so one can assume independence, but large enough to find statistically significant relationships between variables.
+
+We will be looking at health information from all 50 states, both looking at the whole population, and also making analyses on groups of people that identified under the transgender umbrella.
