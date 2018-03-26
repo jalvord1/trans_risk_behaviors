@@ -1,0 +1,22 @@
+---
+title: "Data Appendix"
+author: "Cas Sweeney"
+date: "March 26, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+##load data from main rmd file.RMD
+##data is filtered_data with all updated categories
+##Look at the structure of the data
+
+str(filtered_data)
+```
+
+```{r}
+
+```
