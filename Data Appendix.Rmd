@@ -14,11 +14,18 @@ knitr::opts_chunk$set(echo = TRUE)
 ##data is filtered_data with all updated categories
 ##select the labeled versions of the variables
 cleardata <- filtered_data %>%
-  select(transgender, high_hiv_risk, race, generalhealth, physicalhealth, mentalhealth, poorhealth, healthplan, medicalcost, checkup, state, exercise, sleep, sexfactor, educationbinary, employment, numchildren, income, weight, hivtest, doctorvisits, medicationcost, sexualorientation, emotionalsupport, bmi)
+  select(transgender, high_hiv_risk, race, racebinary, generalhealth, physicalhealth, mentalhealth, poorhealth, healthplan, medicalcost, checkup, state, exercise, sleep, sexfactor, educationbinary, employment, numchildren, income, incomebinary, weight, hivtest, doctorvisits, medicationcost, sexualorientation, emotionalsupport, bmi)
 ##Look at the structure of the data
 str(cleardata)
 ```
 
 ```{r}
+##look at each variable
+favstats(~high_hiv_risk, data=cleardata)
+tally(~transgender, data=cleardata)
+tally(~racebinary, data=cleardata)
+
+
+
 
 ```
