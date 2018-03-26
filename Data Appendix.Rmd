@@ -12,9 +12,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 ##load data from main rmd file.RMD
 ##data is filtered_data with all updated categories
+##select the labeled versions of the variables
+cleardata <- filtered_data %>%
+  select(transgender, high_hiv_risk, race, generalhealth, physicalhealth, mentalhealth, poorhealth, healthplan, medicalcost, checkup, state, exercise, sleep, sexfactor, educationbinary, employment, numchildren, income, weight, hivtest, doctorvisits, medicationcost, sexualorientation, emotionalsupport, bmi)
 ##Look at the structure of the data
-
-str(filtered_data)
+str(cleardata)
 ```
 
 ```{r}

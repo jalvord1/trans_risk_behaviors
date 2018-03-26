@@ -125,7 +125,23 @@ filtered_data<-filtered_data %>%
   mutate(numchildren = ifelse(children %in% c(99), NA,
          ifelse(children == 88, 0, children))) %>%
   mutate(income = ifelse(income2 %in% c(77, 99), NA, income2)) %>%
-  mutate(income = factor(income, levels = c(1,2,3,4,5,6,7,8), labels = c("<10k", "10k-15k", "15k-20k", "20k-25k", "25k-35k", "35k-50k", "50k-75k", ">75k")))
+  mutate(income = factor(income, levels = c(1,2,3,4,5,6,7,8), labels = c("<10k", "10k-15k", "15k-20k", "20k-25k", "25k-35k", "35k-50k", "50k-75k", ">75k"))) %>%
+  #mutate(weight = ifelse(weight2 %in% c(7777, 9999), NA,
+  #                       ifelse(weight2 %in% c(9000:9998), ((weight2-9000)*2.20462), weight2)))
+  #something is wrong with the weight transformation
+  mutate(hivtest = ifelse(hivtst6 == 1, "Tested for HIV", 
+                          ifelse(hivtst6 == 2, "Not Tested for HIV", NA))) %>%
+  mutate(doctorvisits = ifelse(drvisits == 77, NA, 
+                               ifelse(drvisits == 88, 0, drvisits))) %>%
+  mutate(medicationcost = ifelse(medscost == 1, "Cost Barrier", 
+                        ifelse(medscost == 2, "No cost Barrier",
+                               ifelse(medscost == 3, "No Medication", NA)))) %>%
+  mutate(sexualorientation = ifelse(sxorient == 1, "Straight",
+                                    ifelse(sxorient == 2, "Lesbian or gay", 
+                                           ifelse(sxorient == 3, "Bisexual", 
+                                                  ifelse(sxorient == 4, "Other", NA))))) %>%
+  mutate(emotionalsupport = ifelse(emtsuprt %in% c(7,9), NA, emtsuprt)) %>%
+  mutate(bmi = factor(x.bmi5cat, levels=c(1:4), labels=c("Underweight", "Normal Weight", "Overweight", "Obese")))
 ```
 
 
