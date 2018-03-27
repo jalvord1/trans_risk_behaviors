@@ -97,6 +97,7 @@ str(cleardata)
 ```{r}
 tally(~high_hiv_risk, data=cleardata)
 ```
+
 We are treating HIV risk as a binary, categorical variable. Since we are using this as our response variable, we filtered out any null values. 0 represents an individual without a high HIV risk, and 1 represents an individual with a high HIV risk.
 
 ##Transgender
@@ -106,6 +107,7 @@ tally(~transgender, data=cleardata)
 ```
 
 We are treating transgender status as a categorical variable. Since this is our primary explanatory variable, we are keeping it as a categorical variable, and also filtered out any null values.
+
 ##Race
 
 ```{r}
@@ -137,3 +139,11 @@ tally(~emotionalsupport, data=cleardata)
 ```
 
 There are many NA values for this variable. This is because most states did not choose to ask this question. Because of this we will have to be careful about how general we make our conclusion with this data. It is possible that the states that asked this question will have different levels of HIV risk than states that didn't, which would confound our data if we filtered out the null values.
+
+##Most pressing data cleaning issues
+
+Investigate racebinary and educationbinary for missing null values.
+
+If we decide to use addition variables from above, we will need to repeat this process.
+
+Rename the levels for high_HIV_risk into a clearer version.
