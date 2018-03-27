@@ -1,12 +1,85 @@
 ---
 title: "Data Appendix"
-author: "Cas Sweeney"
+author: "Trans Risk Behaviors"
 date: "March 26, 2018"
 output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(mosaic)
+filtered_data <- read.csv("Pop Health Data 2016.csv")
+#Transgender
+filtered_data <- filtered_data %>%
+  filter(!trnsgndr %in% c(7,9)) %>%
+  mutate(transgender = ifelse(trnsgndr == 1, "female", 
+                              ifelse(trnsgndr == 2, "male", 
+                                     ifelse(trnsgndr == 3, "non-conforming", "Cis"))))
+
+#High HIV risk binary variable 
+filtered_data <- filtered_data %>%
+  filter(!is.na(hivrisk4)) %>%
+  filter(!hivrisk4 %in% c(7, 9)) %>%
+  mutate(high_hiv_risk = ifelse(hivrisk4 == 1, 1, 0))
+
+#Race (grouped) 
+filtered_data <- filtered_data %>%
+  filter(!x.racegr3 == 9) %>%
+  mutate(race = ifelse(x.racegr3 == 1, "white", 
+                       ifelse(x.racegr3 == 2, "black", 
+                              ifelse(x.racegr3 == 3, "other", 
+                                     ifelse(x.racegr3 == 4, "multi", "hispanic")))))
+filtered_data<-filtered_data %>%
+  mutate(state = factor(x.state, levels=c(6, 9, 10, 13, 15, 16, 17, 18, 19, 21, 22, 25, 27, 28, 29, 32, 36, 39, 42, 44, 48, 50, 51, 53, 55, 66), labels=c("California", "Connecticut", "Delaware", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kentucky", "Louisiana", "Massachusetts", "Minnesota", "Mississippi", "Missouri", "Nevada", "New York", "Ohio", "Pennsylvania", "Rhode Island", "Texas", "Vermont", "Virginia", "Washington", "Wisconsin", "Guam"))) %>%
+  mutate(generalhealth = ifelse(genhlth %in% c(7, 9), NA, genhlth)) %>%
+  mutate(physicalhealth = ifelse(physhlth %in% c(77, 99), NA,
+         ifelse(physhlth == 88, 0, physhlth))) %>%
+  mutate(mentalhealth = ifelse(menthlth %in% c(77, 99), NA,
+         ifelse(menthlth == 88, 0, menthlth))) %>%
+  mutate(poorhealth = ifelse(poorhlth %in% c(77, 99), NA,
+         ifelse(poorhlth == 88, 0, poorhlth))) %>%
+  mutate(healthplan = ifelse(hlthpln1 == 1, "Healthcare", 
+                       ifelse(hlthpln1 == 2, "No Healthcare", NA))) %>%
+  mutate(medicalcost = ifelse(medcost == 1, "Cost Barrier", 
+                        ifelse(medcost == 2, "No cost Barrier", NA))) %>%
+  mutate(checkup = ifelse(checkup1 == 1, "<1", 
+                          ifelse(checkup1 == 2, "1-2", 
+                                 ifelse(checkup1 == 3, "2-5",
+                                        ifelse(checkup1 == 5, ">5", NA))))) %>%
+  mutate(exercise = ifelse(exerany2 == 1, "Exercise", 
+                       ifelse(exerany2 == 2, "No Exercise", NA))) %>%
+  mutate(sleep = ifelse(sleptim1 %in% c(77, 99), NA, sleptim1)) %>%
+  mutate(sexfactor = ifelse(sex == 1, "Male", 
+                       ifelse(sex == 2, "Female", "Refused"))) %>%
+  mutate(educationbinary = ifelse(educa == 6, "Graduated College or Technical School", 
+                                  ifelse(educa == 9, NA, "Did Not Graduate College or Technical School"))) %>%
+  mutate(employment = ifelse(employ1 %in% c(1,2), "Paid Work", 
+                             ifelse(employ1 %in% c(5,6), "Unpaid Work",
+                                    ifelse(employ1 == 9, NA, "Not working")))) %>%
+  mutate(numchildren = ifelse(children %in% c(99), NA,
+         ifelse(children == 88, 0, children))) %>%
+  mutate(income = ifelse(income2 %in% c(77, 99), NA, income2)) %>%
+  mutate(income = factor(income, levels = c(1,2,3,4,5,6,7,8), labels = c("<10k", "10k-15k", "15k-20k", "20k-25k", "25k-35k", "35k-50k", "50k-75k", ">75k"))) %>%
+  #mutate(weight = ifelse(weight2 %in% c(7777, 9999), NA,
+  #                       ifelse(weight2 %in% c(9000:9998), ((weight2-9000)*2.20462), weight2)))
+  #something is wrong with the weight transformation
+  mutate(hivtest = ifelse(hivtst6 == 1, "Tested for HIV", 
+                          ifelse(hivtst6 == 2, "Not Tested for HIV", NA))) %>%
+  mutate(doctorvisits = ifelse(drvisits == 77, NA, 
+                               ifelse(drvisits == 88, 0, drvisits))) %>%
+  mutate(medicationcost = ifelse(medscost == 1, "Cost Barrier", 
+                        ifelse(medscost == 2, "No cost Barrier",
+                               ifelse(medscost == 3, "No Medication", NA)))) %>%
+  mutate(sexualorientation = ifelse(sxorient == 1, "Straight",
+                                    ifelse(sxorient == 2, "Lesbian or gay", 
+                                           ifelse(sxorient == 3, "Bisexual", 
+                                                  ifelse(sxorient == 4, "Other", NA))))) %>%
+  mutate(emotionalsupport = ifelse(emtsuprt %in% c(7,9), NA, emtsuprt)) %>%
+  mutate(emotionalsupport = factor(emotionalsupport, levels=c(1:5), labels=c("Always", "Usually", "Sometimes", "Rarely", "Never"))) %>%
+  mutate(bmi = factor(x.bmi5cat, levels=c(1:4), labels=c("Underweight", "Normal Weight", "Overweight", "Obese"))) %>%
+  mutate(racebinary = ifelse(race == "white", "White", "Non-White")) %>%
+  mutate(incomebinary = ifelse(income %in% c("<10k", "10k-15k", "15k-20k", "20k-25k"), "Less than $25,000 per year", "Greater than $25,000 per year"))
 ```
 
 ```{r}
@@ -14,18 +87,53 @@ knitr::opts_chunk$set(echo = TRUE)
 ##data is filtered_data with all updated categories
 ##select the labeled versions of the variables
 cleardata <- filtered_data %>%
-  select(transgender, high_hiv_risk, race, racebinary, generalhealth, physicalhealth, mentalhealth, poorhealth, healthplan, medicalcost, checkup, state, exercise, sleep, sexfactor, educationbinary, employment, numchildren, income, incomebinary, weight, hivtest, doctorvisits, medicationcost, sexualorientation, emotionalsupport, bmi)
+  select(transgender, high_hiv_risk, race, racebinary, generalhealth, physicalhealth, mentalhealth, poorhealth, healthplan, medicalcost, checkup, state, exercise, sleep, sexfactor, educationbinary, employment, numchildren, income, incomebinary, hivtest, doctorvisits, medicationcost, sexualorientation, emotionalsupport, bmi)
 ##Look at the structure of the data
 str(cleardata)
 ```
 
+##High HIV Risk
+
 ```{r}
-##look at each variable
-favstats(~high_hiv_risk, data=cleardata)
-tally(~transgender, data=cleardata)
-tally(~racebinary, data=cleardata)
-
-
-
-
+tally(~high_hiv_risk, data=cleardata)
 ```
+We are treating HIV risk as a binary, categorical variable. Since we are using this as our response variable, we filtered out any null values. 0 represents an individual without a high HIV risk, and 1 represents an individual with a high HIV risk.
+
+##Transgender
+
+```{r}
+tally(~transgender, data=cleardata)
+```
+
+We are treating transgender status as a categorical variable. Since this is our primary explanatory variable, we are keeping it as a categorical variable, and also filtered out any null values.
+##Race
+
+```{r}
+tally(~racebinary, data=cleardata)
+```
+
+We collapsed race into a binary variable, white and non-white. The magnitude of each level makes sense based on the general makeup of the US. There are no null values which is concerning, because all "Don't know" or "Refused" were put into NA. Further investigation is necessary to make sure the null values were not added to one of the categories.
+
+##Socioeconomic status
+
+```{r}
+tally(~incomebinary, data=cleardata)
+```
+
+We are also treating socioeconomic status as a binary variable. There is a much larger number of people in the "Greater than $25,000 per year" than the "Less than $25,000 per year" group, but we chose the dividing point not on size, but by the approximate poverty line, so this is an acceptable distribution. There should be NA values, just as in the racebinary variable, so we will need to check that these categories are accurate.
+
+##Education
+
+```{r}
+tally(~educationbinary, data=cleardata)
+```
+
+There are many NA values for this variable, because "Refused" and "Don't Know/Unsure" categories were included in NA. It will be important to keep this in mind when doing our analysis as the reason people answered in one of those two categories might be relevant, but since that is unlikely, we will leave the data as is for now. All participants were asked this question, so the null values are because of interviewee response, not interviewer choice.
+
+##Emotional Support
+
+```{r}
+tally(~emotionalsupport, data=cleardata)
+```
+
+There are many NA values for this variable. This is because most states did not choose to ask this question. Because of this we will have to be careful about how general we make our conclusion with this data. It is possible that the states that asked this question will have different levels of HIV risk than states that didn't, which would confound our data if we filtered out the null values.
