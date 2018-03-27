@@ -170,7 +170,10 @@ filtered_data<-filtered_data %>%
                                            ifelse(sxorient == 3, "Bisexual", 
                                                   ifelse(sxorient == 4, "Other", NA))))) %>%
   mutate(emotionalsupport = ifelse(emtsuprt %in% c(7,9), NA, emtsuprt)) %>%
-  mutate(bmi = factor(x.bmi5cat, levels=c(1:4), labels=c("Underweight", "Normal Weight", "Overweight", "Obese")))
+  mutate(emotionalsupport = factor(emotionalsupport, levels=c(1:5), labels=c("Always", "Usually", "Sometimes", "Rarely", "Never"))) %>%
+  mutate(bmi = factor(x.bmi5cat, levels=c(1:4), labels=c("Underweight", "Normal Weight", "Overweight", "Obese"))) %>%
+  mutate(racebinary = ifelse(race == "white", "White", "Non-White")) %>%
+  mutate(incomebinary = ifelse(income %in% c("<10k", "10k-15k", "15k-20k", "20k-25k"), "Less than $25,000 per year", "Greater than $25,000 per year"))
 ```
 
 
