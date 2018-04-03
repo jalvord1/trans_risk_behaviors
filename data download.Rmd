@@ -7,6 +7,8 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(mosaic)
+library(dplyr)
 ```
 
 ##loading data
@@ -18,13 +20,15 @@ library(Hmisc)
 mydata <- sasxport.get("/Users/juliannaalvord/Downloads/LLCP2016.XPT  2")
 
 #We need to select variables
-vars <- c("x.state", "idate", "numadult", "genhlth", "physhlth", "menthlth", "poorhlth", "hlthpln1", "medcost", "checkup1", "exerany2", "sleptim1", "sex", "educa", "employ1", "children", "income2", "weight2", "height3", "hivtst6", "hivrisk4", "drvisits", "medscost", "sxorient", "trnsgndr", "emtsuprt", "x.race", "x.raceg21", "x.racegr3", "x.race.g1", "htin4", "x.bmi5cat", "x.aidtst3")
+vars <- c("x.state", "idate", "numadult", "genhlth", "physhlth", "menthlth", "poorhlth", "hlthpln1", "medcost", "checkup1", "exerany2", "sleptim1", "sex", "educa", "employ1", "children", "income2", "weight2", "height3", "hivtst6", "hivrisk4", "drvisits", "medscost", "sxorient", "trnsgndr", "emtsuprt", "x.race", "x.raceg21", "x.racegr3", "x.race.g1", "htin4", "x.bmi5cat", "x.aidtst3", "x.age.g", "x.smoker3", "marital", "x.rfbing5", "x.rfdrhv5")
 
 mydatafiltered <- mydata %>%
   select(vars) %>%
   filter(!is.na(trnsgndr))
 
 #Writing CSV of filtered data
-write.csv(mydatafiltered, "/Users/juliannaalvord/Documents/SDS 390/Pop Health Data 2016.csv")
+# write.csv(mydatafiltered, "/Users/juliannaalvord/Documents/SDS 390/Pop Health Data 2016.csv")
+
+write.csv(mydatafiltered, "/Users/juliannaalvord/Documents/SDS 390/Pop Health Data 2016 2.csv")
 ```
 
