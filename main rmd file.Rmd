@@ -21,7 +21,7 @@ library(stats)
 
 #vars selected and data filtered in other rmd (data download.Rmd)
 
-filtered_data <- read.csv("Pop Health Data 2016.csv")
+filtered_data <- read.csv("Pop Health Data 2016 2.csv")
 ```
 
 ###Julianna
