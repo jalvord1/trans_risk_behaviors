@@ -37,7 +37,7 @@ filtered_data2 <- filtered_data2 %>%
   filter(!trnsgndr %in% c(7,9)) %>%
   mutate(transgender = ifelse(trnsgndr == 1, "female", 
                               ifelse(trnsgndr == 2, "male", 
-                                     ifelse(trnsgndr == 3, "non-conforming", "Cis"))))
+                                     ifelse(trnsgndr == 3, "non-conforming", "cis"))))
 
 #High HIV risk binary variable 
 filtered_data2 <- filtered_data2 %>%
@@ -47,27 +47,31 @@ filtered_data2 <- filtered_data2 %>%
 
 #Race (grouped) 
 filtered_data2 <- filtered_data2 %>%
-  filter(!x.racegr3 == 9) %>%
   mutate(race = ifelse(x.racegr3 == 1, "white", 
                        ifelse(x.racegr3 == 2, "black", 
                               ifelse(x.racegr3 == 3, "other", 
-                                     ifelse(x.racegr3 == 4, "multi", "hispanic")))),
+                                     ifelse(x.racegr3 == 4, "multi", 
+                                            ifelse(x.racegr3 == 9, NA, "hispanic"))))),
          race_binary = ifelse(x.racegr3 == 1, "white", "racial/ethnic minority"))
 
 filtered_data2$race_binary <- as.factor(filtered_data2$race_binary)
 filtered_data2$race_binary <- relevel(filtered_data2$race_binary, ref = "white")
 
+filtered_data2$race <- as.factor(filtered_data2$race)
+filtered_data2$race <- relevel(filtered_data2$race, ref = "white")
+
 #Income (binary)
 filtered_data2 <- filtered_data2 %>%
-  filter(!income2 %in% c(77,99)) %>%
-  mutate(income_binary = ifelse(income2 %in% c(1, 2, 3, 4), "<25k", ">25k")) 
+  mutate(income_binary = ifelse(income2 %in% c(1, 2, 3, 4), "<25k", 
+                                ifelse(income2 %in% c(77, 99), NA, 
+                                       ifelse(is.na(income2), NA, ">25k"))))
 
 filtered_data2$income_binary <- as.factor(filtered_data2$income_binary)
 filtered_data2$income_binary <- relevel(filtered_data2$income_binary, ref = "<25k")
 
 #Emotional support (categorical)
 filtered_data2 <- filtered_data2 %>%
-  filter(!emtsuprt %in% c(7,9)) %>%
+  mutate(em_sup_cat = ifelse(emtsuprt %in% c(7,9), NA, emtsuprt)) %>%
   mutate(em_sup_cat = factor(emtsuprt, levels = c(1,2,3,4,5), labels = c("always", "usually", "sometimes", "rarely", "never")))
 
 filtered_data2$em_sup_cat<- as.factor(filtered_data2$em_sup_cat)
@@ -75,11 +79,132 @@ filtered_data2$em_sup_cat <- relevel(filtered_data2$em_sup_cat, ref = "never")
 
 #Education
 filtered_data2 <- filtered_data2 %>%
-  filter(!educa == 9) %>%
-  mutate(edu_binary = ifelse(educa == 6, "College grad", "not college grad"))
+  mutate(edu_binary = ifelse(educa == 6, "college grad", ifelse(educa == 9, NA, "not college grad")))
 
 filtered_data2$edu_binary<- as.factor(filtered_data2$edu_binary)
 filtered_data2$edu_binary <- relevel(filtered_data2$edu_binary, ref = "not college grad")
+
+#Age
+filtered_data2 <- filtered_data2 %>%
+  mutate(age_cat = factor(x.age.g, levels = c(1,2,3,4,5, 6), labels = c("18-24", "25-34", "35-44", "45-54", "55-64", "65+")))
+
+filtered_data2$age_cat<- as.factor(filtered_data2$age_cat)
+filtered_data2$age_cat <- relevel(filtered_data2$age_cat, ref = "18-24")
+
+#Heavy Drinker
+filtered_data2 <- filtered_data2 %>%
+  mutate(heavy_drink = ifelse(x.rfdrhv5 == 1, "not heavy", 
+                              ifelse(x.rfdrhv5 == 9, NA, "heavy drinker")))
+
+filtered_data2$heavy_drink<- as.factor(filtered_data2$heavy_drink)
+filtered_data2$heavy_drink <- relevel(filtered_data2$heavy_drink, ref = "not heavy")
+
+#Binge Drinker
+filtered_data2 <- filtered_data2 %>%
+  mutate(binge_drink = ifelse(x.rfbing5 == 1, "not binge", 
+                              ifelse(x.rfbing5 == 9, NA, "binge drinker")))
+
+filtered_data2$binge_drink<- as.factor(filtered_data2$binge_drink)
+filtered_data2$binge_drink <- relevel(filtered_data2$binge_drink, ref = "not binge")
+
+#Creating unhealthy drink
+filtered_data2 <- filtered_data2 %>%
+  mutate(unhealthy_drink = ifelse(binge_drink == "binge drinker"|heavy_drink == "heavy drinker", "unhealthy drinker", 
+                                  ifelse(is.na(binge_drink)|is.na(heavy_drink), NA, "not unhealthy")))
+
+filtered_data2$unhealthy_drink<- as.factor(filtered_data2$unhealthy_drink)
+filtered_data2$unhealthy_drink <- relevel(filtered_data2$unhealthy_drink, ref = "not unhealthy")
+
+#Marital status
+filtered_data2 <- filtered_data2 %>%
+  mutate(partnered = ifelse(marital %in% c(1,6), "partnered", 
+                            ifelse(marital == 9, NA, "not partnered")))
+
+filtered_data2$partnered<- as.factor(filtered_data2$partnered)
+filtered_data2$partnered <- relevel(filtered_data2$partnered, ref = "not partnered")
+
+
+#General Health 
+filtered_data2 <- filtered_data2 %>%
+  mutate(gen_health = ifelse(genhlth %in% c(7,9), NA, genhlth)) %>%
+  mutate(gen_health = factor(genhlth, levels = c(1,2,3,4,5), labels = c("excellent", "very good", "good", "fair", "poor")))
+
+filtered_data2$gen_health<- as.factor(filtered_data2$gen_health)
+filtered_data2$gen_health <- relevel(filtered_data2$gen_health, ref = "poor")
+
+#physical health
+filtered_data2 <- filtered_data2 %>%
+  mutate(physical_health = ifelse(physhlth == 88, 0, 
+                                  ifelse(physhlth %in% c(77, 99), NA, physhlth)))
+
+#mental health
+filtered_data2 <- filtered_data2 %>%
+  mutate(mental_health = ifelse(menthlth == 88, 0, 
+                                ifelse(menthlth %in% c(77, 99), NA, menthlth)))
+
+#poor health
+filtered_data2 <- filtered_data2 %>%
+  mutate(poor_health = ifelse(poorhlth == 88, 0, 
+                                ifelse(poorhlth %in% c(77, 99), NA, poorhlth)))
+
+#health plan
+filtered_data2 <- filtered_data2 %>%
+  mutate(health_plan = ifelse(hlthpln1 == 1, "health care", 
+                              ifelse(hlthpln1 %in% c(7,9), NA, "no health care")))
+
+filtered_data2$health_plan<- as.factor(filtered_data2$health_plan)
+filtered_data2$health_plan <- relevel(filtered_data2$health_plan, ref = "no health care")
+
+#medical cost
+filtered_data2 <- filtered_data2 %>%
+  mutate(dr_cost = ifelse(medcost == 1, "could not afford", 
+                          ifelse(medcost %in% c(7,9), NA, "always afford")))
+
+filtered_data2$dr_cost<- as.factor(filtered_data2$dr_cost)
+filtered_data2$dr_cost <- relevel(filtered_data2$dr_cost, ref = "could not afford")
+
+#routine checkup
+filtered_data2 <- filtered_data2 %>%
+  mutate(routine_checkup = ifelse(checkup1 == 1, "past year", ifelse(checkup1 == 2, "past 2 years", ifelse(checkup1 == 3, "past 5 years", ifelse(checkup1 == 4, "5 or more years", ifelse(checkup1 %in% c(7,9), NA, "Never"))))))
+
+filtered_data2$routine_checkup<- as.factor(filtered_data2$routine_checkup)
+filtered_data2$routine_checkup <- relevel(filtered_data2$routine_checkup, ref = "Never")
+
+#sexual orientation
+filtered_data2 <- filtered_data2 %>%
+  mutate(sex_orient = ifelse(sxorient %in% c(7,9), NA, sxorient)) %>%
+  mutate(sex_orient = factor(sxorient, levels = c(1,2,3,4), labels = c("straight", "lesbian/gay", "bisexual", "other")))
+
+filtered_data2$sex_orient<- as.factor(filtered_data2$sex_orient)
+filtered_data2$sex_orient <- relevel(filtered_data2$sex_orient, ref = "straight")
+
+#doctor visits
+filtered_data2 <- filtered_data2 %>%
+  mutate(dr_visits = ifelse(drvisits == 88, 0, 
+                                ifelse(drvisits %in% c(77, 99), NA, drvisits)))
+
+#medication cost
+filtered_data2 <- filtered_data2 %>%
+  mutate(med_cost = ifelse(medscost == 1, "could not afford",
+                           ifelse(medscost == 2, "always afford", NA)))
+
+filtered_data2$med_cost<- as.factor(filtered_data2$med_cost)
+filtered_data2$med_cost <- relevel(filtered_data2$med_cost, ref = "could not afford")
+
+#BMI 
+filtered_data2 <- filtered_data2 %>%
+  mutate(bmi = factor(x.bmi5cat, levels = c(1,2,3,4), labels = c("underweight", "normal", "overweight", "obese")))
+
+filtered_data2$bmi<- as.factor(filtered_data2$bmi)
+filtered_data2$bmi <- relevel(filtered_data2$bmi, ref = "normal")
+
+#Smoking
+filtered_data2 <- filtered_data2 %>%
+  mutate(smoker = ifelse(x.smoker3 == 9, NA,
+                         ifelse(x.smoker3 %in% c(1, 2, 3), "has smoked", "never smoked")))
+
+filtered_data2$smoker<- as.factor(filtered_data2$smoker)
+filtered_data2$smoker <- relevel(filtered_data2$smoker, ref = "never smoked")
 
 #Descriptive Stats-----------------------
 tally(filtered_data2$transgender)
@@ -88,28 +213,57 @@ tally(filtered_data2$high_hiv_risk)
 
 #Models-----------------------------------
 
-#Initial Model
-logm1 <- glm(high_hiv_risk ~ transgender, data = filtered_data2, family = binomial)
-summary(logm1)
+#simple model
+log_simp <- glm(high_hiv_risk ~ transgender, data = filtered_data2, family = binomial)
+summary(log_simp)
 
-exp(cbind(OR = coef(logm1)))
+exp(cbind(OR = coef(log_simp)))
 
 #Adding race var
-logm2 <- glm(high_hiv_risk ~ transgender + race, data = filtered_data2, family = binomial)
-summary(logm2)
-
-exp(cbind(OR = coef(logm2)))
+# logm2 <- glm(high_hiv_risk ~ transgender + race, data = filtered_data2, family = binomial)
+# summary(logm2)
+# 
+# exp(cbind(OR = coef(logm2)))
 
 #Logistic model 
-logm_int <- glm(high_hiv_risk ~ transgender + race_binary + income_binary + em_sup_cat + edu_binary + transgender:race_binary, data = filtered_data2, family = binomial)
-summary(logm_int)
-
-exp(cbind(OR = coef(logm_int)))
+# logm_int <- glm(high_hiv_risk ~ transgender + race_binary + income_binary + edu_binary + em_sup_cat, data = filtered_data2, family = binomial)
+# summary(logm_int)
+# 
+# exp(cbind(OR = coef(logm_int)))
 
 #Risk Difference
 RD_crude<- glm(high_hiv_risk ~ transgender, data=filtered_data2, family=gaussian(link="identity"))
 summary(RD_crude)
 confint(RD_crude)
+
+#Model 1 (Demographics)
+logm1 <- glm(high_hiv_risk ~ transgender + race + age_cat, data = filtered_data2, family = binomial)
+summary(logm1)
+
+exp(cbind(OR = coef(logm1)))
+
+#Model 2 (Demographics and SES)
+logm2 <- glm(high_hiv_risk ~ transgender + race + age_cat + income_binary + edu_binary, data = filtered_data2, family = binomial)
+summary(logm2)
+
+exp(cbind(OR = coef(logm2)))
+
+#Model 3 (Demographics, SES, Health (confounders))
+logm3 <- glm(high_hiv_risk ~ transgender + race + age_cat + income_binary + edu_binary + partnered
+             + poor_health + health_plan + dr_cost
+             + dr_visits + med_cost + bmi, data = filtered_data2, family = binomial)
+summary(logm3)
+
+exp(cbind(OR = coef(logm3)))
+
+#Model 4 (demographics, ses, confounders, mediators)
+logm4 <- glm(high_hiv_risk ~ transgender + race + age_cat + income_binary + edu_binary + partnered
+             + poor_health + health_plan + dr_cost 
+             + dr_visits + med_cost + bmi + unhealthy_drink + mental_health + smoker + sex_orient
+             + physical_health, data = filtered_data2, family = binomial)
+summary(logm4)
+
+exp(cbind(OR = coef(logm4)))
 ```
 
 ###Natalie
